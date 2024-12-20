@@ -1,24 +1,23 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from app.routes import init_routes
-from app.models import db
-from config import config
+import os
 
-# Initialize the database
 db = SQLAlchemy()
 
-def create_app(config_name):
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config[config_name])
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///app.db"
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
-    # Initialize the database
     db.init_app(app)
 
-    # Import and register blueprints
-    from .routes import init_routes
-    init_routes(app)
+    # Create database if it doesn't exist
+    if not os.path.exists("app.db"):
+        with app.app_context():
+            db.create_all()
+            print("Database created!")
 
-    # Import models to ensure they are registered with SQLAlchemy
-    from . import models
+    init_routes(app)
 
     return app
