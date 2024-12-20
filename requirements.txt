@@ -1,4 +1,5 @@
-Flask
-Flask-SQLAlchemy
-paramiko
+Flask==2.0.2
+Flask-SQLAlchemy==2.5.1
+paramiko==2.7.2
 requests
+gunicorn==20.1.0

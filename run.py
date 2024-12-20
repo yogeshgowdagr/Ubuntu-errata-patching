@@ -2,6 +2,7 @@ from app import create_app, db
 import os
 import logging
 import argparse
+from config import config
 
 # Set up argument parser
 parser = argparse.ArgumentParser(description='Run the Flask application.')
@@ -9,7 +10,7 @@ parser.add_argument('--env', default='development', help='The environment to run
 args = parser.parse_args()
 
 # Create app with the specified environment
-app = create_app(args.env)
+app = create_app(config[args.env])
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
