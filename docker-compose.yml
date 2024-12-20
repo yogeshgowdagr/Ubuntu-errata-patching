@@ -9,4 +9,4 @@ services:
       - .:/app
     environment:
       - FLASK_ENV=development
-    command: python run.py --env=development
+    command: gunicorn --bind 0.0.0.0:5000 run:app
