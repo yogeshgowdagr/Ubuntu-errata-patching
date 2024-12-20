@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="text-center">Server Management</h1>
+<div class="row my-4">
+    <div class="col-md-6">
+        <form action="/add_servers" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="serverFile" class="form-label">Upload Server File</label>
+                <input type="file" class="form-control" id="serverFile" name="server_file" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+    </div>
+</div>
+
+<h2 class="mt-5">Servers</h2>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Hostname</th>
+            <th>IP Address</th>
+            <th>OS Version</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for server in servers %}
+        <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ server.hostname }}</td>
+            <td>{{ server.ip_address }}</td>
+            <td>{{ server.os_version or 'Unknown' }}</td>
+            <td>{{ server.status }}</td>
+            <td>
+                <a href="/scan_server/{{ server.id }}" class="btn btn-info btn-sm">Scan</a>
+                <a href="/update_server/{{ server.id }}" class="btn btn-success btn-sm">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
