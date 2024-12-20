@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
-from app import db
 from app.models import Server, Log
+from app import db
 from app.ssh import SSHClient
 from app.usn import USNParser
 import datetime

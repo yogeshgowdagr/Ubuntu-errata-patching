@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from app.routes import init_routes
 import os
 
 db = SQLAlchemy()
@@ -18,6 +17,8 @@ def create_app():
             db.create_all()
             print("Database created!")
 
+    # Import and initialize routes after db is initialized
+    from app.routes import init_routes
     init_routes(app)
 
     return app
